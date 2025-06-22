@@ -5,23 +5,48 @@ namespace BinaryHeapTree
 {
     public class Program
     {
-         static void Main(string[] args)
+        class MinComparer : IComparer<int>
+        {
+            public int Compare(int a, int b)
+            {
+                return a.CompareTo(b);
+            }
+        }
+
+        class MaxComparer : IComparer<int>
+        {
+            public int Compare(int a, int b)
+            {
+                return b.CompareTo(a);
+            }
+        }
+
+        static void Main(string[] args)
         {
            
-            List<int> list = [9,8,7,6,5,4,3,2,1];
-            BinaryHeapTree<int> min = new BinaryHeapTree<int>(list.ToArray());
-            int[] array = new int[list.Count];
-            list.CopyTo(array, 0);
-           
-           
-            min.Pop();
-            for (int i = 0; i < min.minTree.Length; i++)
+            List<int> list = [1,7,2,8,9,5,4,3,6];
+            var array = list.ToArray();//Randomize(list.ToArray());
+            BinaryHeapTree<int>.HeapSortOptimal(array,new MaxComparer());
+
+            BinaryHeapTree<int> min = new BinaryHeapTree<int>(array, new MinComparer());
+
+            //int[] array = new int[list.Count];
+           // list.CopyTo(array, 0);
+            BinaryHeapTree<int> max = new BinaryHeapTree<int>(list.ToArray(), new MaxComparer());
+
+            for (int i = 0; i < min.tree.Count(); i++)
             {
-                Console.Write(min.minTree[i] + ", ");
+                Console.Write(min.tree[i] + ", ");
             }
             Console.WriteLine();
 
-            array = Randomize(array);
+            for (int i = 0; i < max.tree.Count(); i++)
+            {
+                Console.Write(max.tree[i] + ", ");
+            }
+            Console.WriteLine();
+
+            /*array = Randomize(array);
 
             array = min.HeapSort(array);
 
@@ -29,7 +54,7 @@ namespace BinaryHeapTree
             {
                 Console.Write(array[i] + ", ");
             }
-            Console.WriteLine();
+            Console.WriteLine();*/
 
         }
 
