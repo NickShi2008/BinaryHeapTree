@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryHeapTree", "BinaryHeapTree\BinaryHeapTree.csproj", "{82726799-3C80-4E43-B097-9944A6AFAE17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeapTreeBenchmark", "HeapTreeBenchmark\HeapTreeBenchmark.csproj", "{B17CA360-A69F-4681-A593-C9DE2378ABF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{82726799-3C80-4E43-B097-9944A6AFAE17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82726799-3C80-4E43-B097-9944A6AFAE17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82726799-3C80-4E43-B097-9944A6AFAE17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17CA360-A69F-4681-A593-C9DE2378ABF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17CA360-A69F-4681-A593-C9DE2378ABF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17CA360-A69F-4681-A593-C9DE2378ABF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17CA360-A69F-4681-A593-C9DE2378ABF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

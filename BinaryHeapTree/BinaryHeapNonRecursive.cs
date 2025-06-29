@@ -2,7 +2,7 @@
 
 namespace BinaryHeapTree
 {
-    public class BinaryHeapTree<T>
+    public class BinaryHeapNonRecursive<T>
     {
         public T[] tree;
 
@@ -11,24 +11,20 @@ namespace BinaryHeapTree
         public IComparer<T> Comparer { get; private set; }
 
         //Constructor
-        public BinaryHeapTree(IComparer<T> comparer)
+        public BinaryHeapNonRecursive(IComparer<T> comparer)
         {
             Comparer = comparer;
             Count = 0;
         }
-        public BinaryHeapTree(T[] array, IComparer<T> comparer)
+        public BinaryHeapNonRecursive(T[] array, IComparer<T> comparer)
         {
             Comparer = comparer;
             Count = array.Length;
             tree = array;
             //only can call count/2 + 1 amount of times
-            int doubleCount = 0;
             int runTimes = (array.Length + 1) / 2;
-            for (int i = Count - 1; i >= runTimes - 1; i--)
-            {
-                doubleCount++;
-                HeapifyUp(i);
-            }
+            HeapifyUp(array.Length - 1);
+            EddenHeapifyHelper(0);
             ;
             //only works if heapify up continues to check upwards instead of stopping at parent value
         }
@@ -95,7 +91,7 @@ namespace BinaryHeapTree
             second = temp;
         }
 
-        //recursive
+        //Edden version of heapify without loops
         public void HeapifyUp(int index)
         {
             //base case
@@ -107,16 +103,33 @@ namespace BinaryHeapTree
             int parent = (index - 1) / 2;
             //changed for new way heap sort
             //need do while to check at least once and on the way back down
-            do
+            if (Comparer.Compare(tree[index], tree[parent]) < 0)
             {
-                if (Comparer.Compare(tree[index], tree[parent]) < 0)
-                {
-                    Swap(ref tree[index], ref tree[parent]);
-                }
+                Swap(ref tree[index], ref tree[parent]);
+            }
 
-                HeapifyUp(parent);
-            } while (Comparer.Compare(tree[index], tree[parent]) < 0);
+            HeapifyUp(parent);
+        }
 
+        public void EddenHeapifyHelper(int parent)
+        {
+            if (parent == tree.Length) { return; }
+
+            int leftChild = (parent * 2) + 1;
+            int rightChild = (parent * 2) + 2;
+
+            if (Comparer.Compare(tree[parent], tree[leftChild]) < 0)
+            {
+                Swap(ref tree[leftChild], ref tree[parent]);
+            }
+
+            if (Comparer.Compare(tree[parent], tree[rightChild]) < 0)
+            {
+                Swap(ref tree[rightChild], ref tree[parent]);
+            }
+
+            HeapifyUp(rightChild);
+            HeapifyUp(leftChild);
         }
 
         public void HeapifyDown(int index)
@@ -175,16 +188,15 @@ namespace BinaryHeapTree
             return array;
         }
 
-        //try to make heapsort without new array
-        //max better
+        
         public static T[] HeapSortOptimal(T[] list, IComparer<T> maxComparer)
         {
             T[] arr = new T[list.Length];
-            for(int i = 0; i < list.Length; i++)
+            for (int i = 0; i < list.Length; i++)
             {
                 arr[i] = list[i];
             }
-            ;
+           ;
             BinaryHeapTree<T> maxTree = new BinaryHeapTree<T>(list, maxComparer);
             ;
             for (int i = list.Length - 1; i >= 0; i--)

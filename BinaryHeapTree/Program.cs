@@ -23,45 +23,59 @@ namespace BinaryHeapTree
 
         static void Main(string[] args)
         {
-           
-            List<int> list = [1,7,2,8,9,5,4,3,6];
-            var array = list.ToArray();//Randomize(list.ToArray());
-            BinaryHeapTree<int>.HeapSortOptimal(array,new MaxComparer());
-
-            BinaryHeapTree<int> min = new BinaryHeapTree<int>(array, new MinComparer());
-
-            //int[] array = new int[list.Count];
-           // list.CopyTo(array, 0);
-            BinaryHeapTree<int> max = new BinaryHeapTree<int>(list.ToArray(), new MaxComparer());
-
-            for (int i = 0; i < min.tree.Count(); i++)
+            int count = 0;
+            for (int i = 0; i < 1000; i++)
             {
-                Console.Write(min.tree[i] + ", ");
+                List<int> list = [1, 7, 2, 8, 9, 5, 4, 3, 6];
+                var array = Randomize(list.ToArray(), new Random(2));
+
+           //     BinaryHeapTree<int>.HeapSortOptimal(array, new MaxComparer());
+                BinaryHeapNonRecursive<int>.HeapSortOptimal(array, new MaxComparer());
+
+                for (int j = 0; j < array.Length - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        Console.WriteLine(i);
+                        count++;
+                    }
+                }
             }
-            Console.WriteLine();
 
-            for (int i = 0; i < max.tree.Count(); i++)
-            {
-                Console.Write(max.tree[i] + ", ");
-            }
-            Console.WriteLine();
+            Console.WriteLine($"HAPPENS {count}/1000...{count / 10f}%");
+            /*    BinaryHeapTree<int> min = new BinaryHeapTree<int>(array, new MinComparer());
 
-            /*array = Randomize(array);
+                //int[] array = new int[list.Count];
+               // list.CopyTo(array, 0);
+                BinaryHeapTree<int> max = new BinaryHeapTree<int>(list.ToArray(), new MaxComparer());
 
-            array = min.HeapSort(array);
+                for (int i = 0; i < min.tree.Count(); i++)
+                {
+                    Console.Write(min.tree[i] + ", ");
+                }
+                Console.WriteLine();
 
-            for (int i = 0; i < array.Length; i++)
-            {
-                Console.Write(array[i] + ", ");
-            }
-            Console.WriteLine();*/
+                for (int i = 0; i < max.tree.Count(); i++)
+                {
+                    Console.Write(max.tree[i] + ", ");
+                }
+                Console.WriteLine();
+            */
+            //   array = Randomize(array);
+
+            //   array = min.HeapSort(array);
+
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    Console.Write(array[i] + ", ");
+            //}
+            //Console.WriteLine();
 
         }
 
-        public static int[] Randomize(int[] list)
+        public static int[] Randomize(int[] list, Random rand)
         { 
             int n = list.Length;
-            Random rand = new Random();
             while (n > 1)
             {
                 int k = rand.Next(n--);
